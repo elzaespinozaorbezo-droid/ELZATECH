@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ELSATECH – Diseño Creativo Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --deep:     #060d1f;
+      --mid:      #0b1a3e;
+      --brand:    #1a6fff;
+      --light:    #3d8bff;
+      --glow:     #60a5fa;
+      --cyan:     #00d4ff;
+      --purple:   #7c3aed;
+      --pink:     #ec4899;
+      --green:    #10b981;
+      --white:    #ffffff;
+      --gray-100: #f4f7fc;
+      --gray-200: #e2e8f4;
+      --gray-600: #4a5c7a;
+      --card-bg:  #ffffff;
+      --r-sm: 10px; --r-md: 18px; --r-lg: 26px; --r-xl: 32px;
+      --tr: .3s cubic-bezier(.4,0,.2,1);
+      --sh-md: 0 8px 32px rgba(26,111,255,.18);
+      --sh-lg: 0 24px 64px rgba(10,22,40,.22);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--deep); line-height: 1.6; overflow-x: hidden; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(6,13,31,.93); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .nav-inner { max-width: 1200px; margin: auto; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 70px; }
+    .nav-logo { display: flex; align-items: center; gap: .85rem; text-decoration: none; }
+    .nav-logo-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--cyan));
+      display: grid; place-items: center; font-size: 1.1rem; color: white;
+      box-shadow: 0 4px 16px rgba(0,212,255,.3);
+    }
+    .nav-logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; color: white; line-height: 1.1; }
+    .nav-logo-text span { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400; font-size: .65rem; color: var(--glow); letter-spacing: .14em; text-transform: uppercase; margin-top: 1px; }
+    .nav-links { display: flex; gap: .3rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,.7); text-decoration: none; font-size: .85rem; font-weight: 500; padding: .45rem .9rem; border-radius: var(--r-sm); transition: var(--tr); }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,.09); }
+    .nav-cta {
+      background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+      color: white !important; padding: .5rem 1.2rem !important; border-radius: 50px !important;
+      box-shadow: 0 4px 14px rgba(34,197,94,.35);
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(34,197,94,.5) !important; }
+    .hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; cursor: pointer; padding: .6rem .7rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: var(--r-sm); min-width: 44px; min-height: 44px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; transition: var(--tr); }
+    .mobile-menu { display: none; background: var(--deep); padding: .5rem 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,.08); }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: flex; align-items: center; padding: .9rem 0; color: rgba(255,255,255,.85); text-decoration: none; font-weight: 500; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ─── HERO ─── */
+    #inicio {
+      min-height: 100vh;
+      background: linear-gradient(150deg, #060d1f 0%, #0a1838 45%, #0d2257 100%);
+      position: relative; display: flex; align-items: center; overflow: hidden;
+    }
+    /* animated grid */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(26,111,255,.07) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(26,111,255,.07) 1px, transparent 1px);
+      background-size: 70px 70px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    /* glowing orbs */
+    .orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .orb-1 { width: 700px; height: 700px; top: -250px; right: -150px; background: radial-gradient(circle, rgba(0,212,255,.1) 0%, transparent 65%); animation: breathe 9s ease-in-out infinite; }
+    .orb-2 { width: 500px; height: 500px; bottom: -150px; left: -50px; background: radial-gradient(circle, rgba(124,58,237,.12) 0%, transparent 65%); animation: breathe 12s ease-in-out infinite reverse; }
+    .orb-3 { width: 300px; height: 300px; top: 30%; left: 35%; background: radial-gradient(circle, rgba(26,111,255,.08) 0%, transparent 65%); animation: breathe 7s ease-in-out infinite 2s; }
+    @keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+
+    .hero-content {
+      position: relative; z-index: 2; max-width: 1200px; margin: auto;
+      padding: 8rem 2rem 4rem;
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 5rem; align-items: center;
+    }
+
+    /* LEFT */
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(0,212,255,.1); border: 1px solid rgba(0,212,255,.35);
+      color: var(--cyan); font-size: .75rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .45rem 1.1rem; border-radius: 50px; margin-bottom: 1.8rem;
+      width: fit-content; animation: fadeUp .7s ease both;
+    }
+    .hero-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); display: block; animation: blink 1.5s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3.2rem, 6vw, 5rem);
+      font-weight: 800; color: white; line-height: 1.05; letter-spacing: -1px;
+      margin-bottom: 1.4rem; animation: fadeUp .7s .1s ease both;
+    }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(90deg, var(--cyan) 0%, #a78bfa 50%, var(--brand) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      background-size: 200%; animation: shimmer 4s linear infinite;
+    }
+    @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,.62); max-width: 440px; margin-bottom: 2.2rem; font-weight: 400; line-height: 1.75; animation: fadeUp .7s .2s ease both; }
+
+    .hero-author { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; animation: fadeUp .7s .3s ease both; }
+    .hero-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--cyan));
+      display: grid; place-items: center; font-family: 'Syne', sans-serif;
+      font-size: 1.3rem; font-weight: 800; color: white; flex-shrink: 0;
+      border: 2px solid rgba(0,212,255,.4); box-shadow: 0 0 0 4px rgba(0,212,255,.1);
+    }
+    .hero-author-text strong { display: block; color: white; font-weight: 700; font-size: .95rem; }
+    .hero-author-text span { color: rgba(255,255,255,.5); font-size: .82rem; }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp .7s .4s ease both; }
+    .btn { display: inline-flex; align-items: center; gap: .6rem; padding: .9rem 1.9rem; border-radius: 50px; font-weight: 700; font-size: .88rem; text-decoration: none; transition: var(--tr); border: none; cursor: pointer; letter-spacing: .01em; }
+    .btn-wa { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; box-shadow: 0 8px 24px rgba(34,197,94,.35); }
+    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(34,197,94,.5); }
+    .btn-outline { background: rgba(255,255,255,.07); color: white; border: 1.5px solid rgba(255,255,255,.25); backdrop-filter: blur(8px); }
+    .btn-outline:hover { background: rgba(255,255,255,.12); border-color: rgba(0,212,255,.5); color: var(--cyan); transform: translateY(-2px); }
+
+    /* RIGHT – service cards grid */
+    .hero-right { animation: fadeUp .7s .5s ease both; }
+    .services-preview {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    .sp-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r-lg);
+      padding: 1.6rem 1.2rem;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: var(--tr);
+      cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .sp-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: var(--r-lg);
+      background: linear-gradient(135deg, rgba(26,111,255,.12), rgba(0,212,255,.08));
+      opacity: 0; transition: var(--tr);
+    }
+    .sp-card:hover { transform: translateY(-5px) scale(1.02); border-color: rgba(0,212,255,.45); box-shadow: 0 12px 40px rgba(0,0,0,.3), 0 0 0 1px rgba(0,212,255,.2); }
+    .sp-card:hover::before { opacity: 1; }
+    .sp-card .sp-emoji { font-size: 2rem; margin-bottom: .7rem; display: block; filter: drop-shadow(0 2px 8px rgba(0,212,255,.3)); transition: var(--tr); }
+    .sp-card:hover .sp-emoji { transform: scale(1.15) rotate(-5deg); }
+    .sp-card .sp-name { font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.85); line-height: 1.3; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+
+    /* ─── SERVICES SECTION ─── */
+    #servicios { background: #f3f7ff; padding: 90px 2rem; }
+    .section-wrap { max-width: 1200px; margin: auto; }
+    .section-kicker {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(26,111,255,.09); border: 1px solid rgba(26,111,255,.22);
+      color: var(--brand); font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .38rem .95rem; border-radius: 50px; margin-bottom: 1rem;
+    }
+    .section-title-big {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; color: var(--deep); line-height: 1.15; margin-bottom: .75rem;
+    }
+    .section-title-big span { color: var(--brand); }
+    .section-desc { color: var(--gray-600); font-size: .98rem; max-width: 520px; margin-bottom: 3rem; }
+
+    .svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.5rem; }
+
+    .svc-card {
+      background: white;
+      border-radius: var(--r-xl);
+      padding: 2rem 1.8rem;
+      border: 2px solid transparent;
+      box-shadow: 0 2px 16px rgba(26,111,255,.07);
+      transition: var(--tr);
+      position: relative; overflow: hidden;
+      cursor: default;
+    }
+    .svc-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: var(--grad); /* set inline */ border-radius: 0 0 var(--r-xl) var(--r-xl);
+      transform: scaleX(0); transform-origin: left; transition: var(--tr);
+    }
+    .svc-card:hover { transform: translateY(-7px); border-color: rgba(26,111,255,.12); box-shadow: 0 20px 60px rgba(26,111,255,.14); }
+    .svc-card:hover::after { transform: scaleX(1); }
+
+    /* icon blob */
+    .svc-icon-wrap {
+      width: 64px; height: 64px; border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem; margin-bottom: 1.3rem;
+      transition: var(--tr); position: relative;
+    }
+    .svc-card:hover .svc-icon-wrap { transform: scale(1.08) rotate(-4deg); }
+
+    .svc-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800; color: var(--deep); margin-bottom: .5rem; }
+    .svc-card p { font-size: .86rem; color: var(--gray-600); line-height: 1.65; }
+
+    .svc-tag {
+      display: inline-block; margin-top: 1.1rem;
+      font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; padding: .3rem .8rem; border-radius: 50px;
+    }
+
+    /* ─── CONTACT ─── */
+    #contacto { background: white; padding: 90px 2rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .contact-cards-col { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-card {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--gray-100); border: 1.5px solid var(--gray-200); border-radius: var(--r-lg);
+      padding: 1.25rem 1.5rem; text-decoration: none; color: var(--deep); transition: var(--tr);
+    }
+    .contact-card:hover { transform: translateY(-3px); box-shadow: var(--sh-md); border-color: rgba(26,111,255,.3); }
+    .contact-card-icon { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; font-size: 1.3rem; }
+    .contact-card strong { display: block; font-weight: 700; font-size: .95rem; }
+    .contact-card span { font-size: .82rem; color: var(--gray-600); }
+    .cta-box {
+      background: linear-gradient(135deg, #060d1f 0%, #0d2257 100%);
+      border-radius: var(--r-xl); padding: 2.5rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(26,111,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(26,111,255,.07) 1px, transparent 1px); background-size: 30px 30px; }
+    .cta-box > * { position: relative; z-index: 1; }
+    .cta-box h3 { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: white; margin-bottom: .75rem; }
+    .cta-box p { color: rgba(255,255,255,.6); font-size: .9rem; margin-bottom: 2rem; line-height: 1.65; }
+    .cta-box .btn { width: 100%; justify-content: center; margin-bottom: .75rem; font-size: .95rem; }
+    .btn-blue { background: linear-gradient(135deg, var(--brand), var(--light)); color: white; box-shadow: 0 8px 24px rgba(26,111,255,.35); }
+    .btn-blue:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(26,111,255,.5); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--deep); color: rgba(255,255,255,.55); padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand p { font-size: .87rem; line-height: 1.7; margin-top: 1rem; color: rgba(255,255,255,.45); }
+    .footer-col h4 { font-family: 'Syne', sans-serif; color: white; font-size: .9rem; margin-bottom: 1rem; font-weight: 700; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .6rem; }
+    .footer-col ul li a { color: rgba(255,255,255,.45); text-decoration: none; font-size: .84rem; transition: var(--tr); }
+    .footer-col ul li a:hover { color: var(--cyan); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+    .footer-bottom p { font-size: .8rem; }
+    .footer-bottom span { color: var(--cyan); }
+    .footer-socials { display: flex; gap: .6rem; }
+    .footer-social-btn { width: 36px; height: 36px; border-radius: 9px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); display: grid; place-items: center; color: rgba(255,255,255,.55); text-decoration: none; font-size: .85rem; transition: var(--tr); }
+    .footer-social-btn:hover { background: var(--brand); border-color: var(--brand); color: white; }
+
+    /* floating wa */
+    .wa-float { position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 900; width: 60px; height: 60px; border-radius: 50%; background: #22c55e; color: white; font-size: 1.65rem; display: grid; place-items: center; text-decoration: none; box-shadow: 0 8px 28px rgba(34,197,94,.5); transition: var(--tr); }
+    .wa-float:hover { transform: scale(1.1); background: #16a34a; }
+    .wa-tooltip { position: absolute; right: 72px; white-space: nowrap; background: var(--deep); color: white; font-size: .78rem; padding: .4rem .9rem; border-radius: 8px; opacity: 0; pointer-events: none; transition: var(--tr); font-weight: 600; }
+    .wa-float:hover .wa-tooltip { opacity: 1; }
+
+    /* responsive */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-right { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      section { padding: 60px 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#inicio" class="nav-logo">
+      <div class="nav-logo-icon"><i class="fas fa-magic"></i></div>
+      <div class="nav-logo-text">ELSATECH<span>Diseño Creativo Digital</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li>
+        <a href="https://wa.me/51932938710?text=Hola%20Elsa!%20Me%20interesa%20cotizar%20un%20servicio%20de%20diseño%20🎨" target="_blank" class="nav-cta">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+      </li>
+    </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#servicios">Servicios</a>
+    <a href="#contacto">Contacto</a>
+    <a href="https://wa.me/51932938710" target="_blank"><i class="fab fa-whatsapp" style="margin-right:.5rem;color:#22c55e"></i>WhatsApp</a>
+    <a href="mailto:Elzaespinozaorbezo@gmail.com"><i class="fas fa-envelope" style="margin-right:.5rem;color:var(--cyan)"></i>Correo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-content">
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hero-badge">✦ Diseño Creativo Digital</div>
+
+      <h1 class="hero-title">
+        Diseño que<br>
+        <span class="line2">impulsa tu<br>negocio</span>
+      </h1>
+
+      <p class="hero-sub">
+        Logos, cartas digitales, catálogos, flyers y más.<br>
+        Transformo tus ideas en diseños profesionales que enamoran a tus clientes.
+      </p>
+
+      <div class="hero-author">
+        <div class="hero-avatar">E</div>
+        <div class="hero-author-text">
+          <strong>Elsa Espinoza</strong>
+          <span>Diseñadora Gráfica Digital · Lima, Perú</span>
+        </div>
+      </div>
+
+      <div class="hero-btns">
+        <a href="https://wa.me/51932938710?text=Hola%20Elsa!%20Me%20interesa%20cotizar%20un%20servicio%20de%20diseño%20🎨" target="_blank" class="btn btn-wa">
+          <i class="fab fa-whatsapp"></i> Cotizar ahora
+        </a>
+        <a href="#servicios" class="btn btn-outline">
+          Ver servicios <i class="fas fa-arrow-down"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: preview cards -->
+    <div class="hero-right">
+      <div class="services-preview">
+        <div class="sp-card"><span class="sp-emoji">🎨</span><div class="sp-name">Diseño de Logos</div></div>
+        <div class="sp-card"><span class="sp-emoji">🍽️</span><div class="sp-name">Cartas Digitales</div></div>
+        <div class="sp-card"><span class="sp-emoji">📲</span><div class="sp-name">Cartas con QR</div></div>
+        <div class="sp-card"><span class="sp-emoji">📖</span><div class="sp-name">Catálogos Digitales</div></div>
+        <div class="sp-card"><span class="sp-emoji">📣</span><div class="sp-name">Flyers Publicitarios</div></div>
+        <div class="sp-card"><span class="sp-emoji">💼</span><div class="sp-name">Tarjetas de Presentación</div></div>
+        <div class="sp-card"><span class="sp-emoji">📸</span><div class="sp-name">Banners para Redes</div></div>
+        <div class="sp-card"><span class="sp-emoji">🌐</span><div class="sp-name">Páginas Web</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-kicker">✦ Qué ofrezco</div>
+      <h2 class="section-title-big">Servicios de <span>Diseño Profesional</span></h2>
+      <p class="section-desc">Todo lo que tu negocio necesita para destacar visualmente y conectar con más clientes.</p>
+    </div>
+
+    <div class="svc-grid">
+
+      <div class="svc-card" style="--grad: linear-gradient(90deg, #1a6fff, #00d4ff)">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#dbeafe,#bfdbfe)">🎨</div>
+        <h3>Diseño de Logos</h3>
+        <p>Identidad visual única para tu marca. Logos modernos, memorables y versátiles para todos tus canales digitales e impresos.</p>
+        <span class="svc-tag" style="background:#dbeafe;color:#1d4ed8">Identidad de marca</span>
+      </div>
+
+      <div class="svc-card" style="--grad: linear-gradient(90deg, #f59e0b, #fbbf24)">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#fef3c7,#fde68a)">🍽️</div>
+        <h3>Cartas Digitales para Restaurantes</h3>
+        <p>Menús digitales interactivos y atractivos. Fáciles de actualizar y perfectos para compartir con tus clientes al instante.</p>
+        <span class="svc-tag" style="background:#fef3c7;color:#b45309">Restaurantes</span>
+      </div>
+
+      <div class="svc-card" style="--grad: linear-gradient(90deg, #10b981, #34d399)">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#d1fae5,#a7f3d0)">📲</div>
+        <h3>Cartas con Código QR</h3>
+        <p>Diseño de cartas físicas con QR integrado. Tus clientes escanean y acceden al menú digital al instante, sin apps.</p>
+        <span class="svc-tag" style="background:#d1fae5;color:#065f46">Tecnología QR</span>
+      </div>
+
+      <div class="svc-card" style="--grad: linear-gradient(90deg, #7c3aed, #a78bfa)">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#ede9fe,#ddd6fe)">📖</div>
+        <h3>Catálogos Digitales</h3>
+        <p>Presenta tus productos de forma visual y profesional. Listos para compartir por WhatsApp, redes sociales o correo.</p>
+        <span class="svc-tag" style="background:#ede9fe;color:#5b21b6">Ventas digitales</span>
+      </div>
+
+      <div class="svc-card" style="--grad: linear-gradient(90deg, #ec4899, #f472b6)">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#fce7f3,#fbcfe8)">📣</div>
+        <h3>Flyers Publicitarios</h3>
+        <p>Diseños llamativos para promociones, eventos y lanzamientos. Creados para captar la atención y generar más ventas.</p>
+        <span class="svc-tag" style="background:#fce7f3;color:#9d174d">Publicidad</span>
+      </div>
+
+      <div class="svc-card" style="--grad: linear-gradient(90deg, #0ea5e9, #38bdf8)">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#e0f2fe,#bae6fd)">💼</div>
+        <h3>Tarjetas de Presentación</h3>
+        <p>Diseño elegante para causar una gran primera impresión. En formato digital o listas para imprimir en alta calidad.</p>
+        <span class="svc-tag" style="background:#e0f2fe;color:#0369a1">Networking</span>
+      </div>
+
+      <div class="svc-card" style="--grad: linear-gradient(90deg, #f97316, #fb923c)">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#ffedd5,#fed7aa)">📸</div>
+        <h3>Banners para Redes Sociales</h3>
+        <p>Portadas, stories y posts para Instagram, Facebook y más. Coherentes con tu identidad de marca para crecer en redes.</p>
+        <span class="svc-tag" style="background:#ffedd5;color:#c2410c">Redes sociales</span>
+      </div>
+
+      <div class="svc-card" style="--grad: linear-gradient(90deg, #1a6fff, #7c3aed)">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#dbeafe,#ede9fe)">🌐</div>
+        <h3>Páginas Web</h3>
+        <p>Sitios web modernos, rápidos y adaptados a móviles. Ideales para mostrar tus servicios y captar nuevos clientes 24/7.</p>
+        <span class="svc-tag" style="background:#dbeafe;color:#1d4ed8">Presencia online</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-kicker">✦ Hablemos</div>
+      <h2 class="section-title-big">¿Lista para <span>empezar?</span></h2>
+      <p class="section-desc">Contáctame y cuéntame tu proyecto. Te asesoro sin compromiso y respondo rápido.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-cards-col">
+        <a href="https://wa.me/51932938710?text=Hola%20Elsa!%20Quiero%20cotizar%20un%20servicio%20de%20diseño%20🎨" target="_blank" class="contact-card">
+          <div class="contact-card-icon" style="background:#dcfce7;color:#16a34a"><i class="fab fa-whatsapp" style="font-size:1.5rem"></i></div>
+          <div><strong>WhatsApp</strong><span>+51 932 938 710 · Respuesta rápida</span></div>
+        </a>
+        <a href="mailto:Elzaespinozaorbezo@gmail.com" class="contact-card">
+          <div class="contact-card-icon" style="background:#dbeafe;color:#1d4ed8"><i class="fas fa-envelope"></i></div>
+          <div><strong>Correo electrónico</strong><span>Elzaespinozaorbezo@gmail.com</span></div>
+        </a>
+        <div class="contact-card" style="cursor:default">
+          <div class="contact-card-icon" style="background:#fef3c7;color:#d97706"><i class="fas fa-location-dot"></i></div>
+          <div><strong>Ubicación</strong><span>Lima, Perú · Atención remota disponible</span></div>
+        </div>
+        <div class="contact-card" style="cursor:default">
+          <div class="contact-card-icon" style="background:#ede9fe;color:#7c3aed"><i class="fas fa-clock"></i></div>
+          <div><strong>Horario de atención</strong><span>Lun – Sáb: 9:00 am – 7:00 pm</span></div>
+        </div>
+      </div>
+      <div class="cta-box">
+        <h3>¡Escríbeme ahora!</h3>
+        <p>Cuéntame qué necesitas y te envío una cotización personalizada. Entrega rápida y revisiones incluidas hasta que quedes feliz.</p>
+        <a href="https://wa.me/51932938710?text=Hola%20Elsa!%20Me%20interesa%20uno%20de%20tus%20servicios%20de%20diseño%20🎨" target="_blank" class="btn btn-wa">
+          <i class="fab fa-whatsapp"></i> Escribir por WhatsApp
+        </a>
+        <a href="mailto:Elzaespinozaorbezo@gmail.com" class="btn btn-blue">
+          <i class="fas fa-envelope"></i> Enviar correo
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#inicio" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fas fa-magic"></i></div>
+          <div class="nav-logo-text" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:white;line-height:1.1">
+            ELSATECH<span style="display:block;font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;font-size:.65rem;color:var(--glow);letter-spacing:.14em;text-transform:uppercase;margin-top:1px">Diseño Creativo Digital</span>
+          </div>
+        </a>
+        <p>Diseño gráfico profesional para impulsar tu negocio. Logos, cartas digitales, catálogos, flyers y páginas web a tu medida.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#servicios">🎨 Diseño de Logos</a></li>
+          <li><a href="#servicios">🍽️ Cartas Digitales</a></li>
+          <li><a href="#servicios">📲 Cartas con QR</a></li>
+          <li><a href="#servicios">📖 Catálogos Digitales</a></li>
+          <li><a href="#servicios">📣 Flyers Publicitarios</a></li>
+          <li><a href="#servicios">💼 Tarjetas de Presentación</a></li>
+          <li><a href="#servicios">📸 Banners Redes Sociales</a></li>
+          <li><a href="#servicios">🌐 Páginas Web</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/51932938710" target="_blank"><i class="fab fa-whatsapp" style="color:#22c55e;margin-right:.4rem"></i>WhatsApp</a></li>
+          <li><a href="mailto:Elzaespinozaorbezo@gmail.com"><i class="fas fa-envelope" style="margin-right:.4rem"></i>Correo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 <span>ELSATECH</span> – Diseño Creativo Digital · Lima, Perú</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="footer-social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/51932938710" target="_blank" class="footer-social-btn"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/51932938710?text=Hola%20Elsa!%20Me%20interesa%20cotizar%20un%20servicio%20de%20diseño%20🎨" target="_blank" class="wa-float" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-tooltip">¡Escríbeme ahora!</span>
+</a>
+
+<script>
+  const ham = document.getElementById('hamburger');
+  const mob = document.getElementById('mobileMenu');
+  ham.addEventListener('click', e => { e.stopPropagation(); mob.classList.toggle('open'); });
+  document.addEventListener('click', e => { if (!ham.contains(e.target) && !mob.contains(e.target)) mob.classList.remove('open'); });
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.svc-card, .contact-card, .sp-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(22px)';
+    el.style.transition = 'opacity .55s ease, transform .55s ease';
+    io.observe(el);
+  });
+
+  // Active nav on scroll
+  const secs = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--cyan)' : ''; });
+  });
+</script>
+</body>
+</html>
